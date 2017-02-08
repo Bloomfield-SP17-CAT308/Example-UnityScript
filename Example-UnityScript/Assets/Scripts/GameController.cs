@@ -10,6 +10,9 @@ public class GameController : MonoBehaviour {
 
 	// UI Element to display score
 	public Text scoreHUD;
+	public Text messageBox;
+
+	float messageBoxClearTime = 0.0f;
 
 	// Stats for player
 	public int score = 0;
@@ -24,7 +27,9 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {	
-	
+		if (Time.time > messageBoxClearTime) {
+			messageBox.text = "";
+		}
 	}
 
 	/// <summary>
@@ -66,5 +71,14 @@ public class GameController : MonoBehaviour {
 	public void FoundCoin() {
 		score += 100;
 		UpdateScoreDisplay();
+	}
+
+	public void ReachedEndPoint() {
+		if (score < 200) {
+			messageBox.text = "Go find coins";
+		} else {
+			messageBox.text = "YOU WIN!";
+		}
+		messageBoxClearTime = Time.time + 2.5f;
 	}
 }
